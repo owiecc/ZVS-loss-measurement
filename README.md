@@ -1,5 +1,34 @@
-# Four-phase current-fed push-pull converter controller
-Controller for a four-phase current-fed push-pull topology. Based on a TMDSCNCD280039C control card. 
+# ZVS loss measurement controller
+
+Controller for a full bridge converter topology. One of the transistors in the converter is the DUT. Converter is operated so that the DUT is turned-on with full ZVS and turned-on at controlled current level. Based on a TMDSCNCD280039C control card. 
+
+## Key waveforms
+
+### Hard switching
+                                                                     
+    ───●─────x─────────────────────────── iL
+    
+    ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ 0       
+       |◀───▶|                            
+         DUT                              
+                                          
+    ● turn-on                         
+    x turn-off          
+
+### Soft switching
+                                                                     
+             x──────                 ──── iL
+            ╱       ╲               ╱     
+    ─ ─ ─ ─╱─ ─ ─ ─ ─╲─ ─ ─ ─ ─ ─ ─╱─ ─ ─ 0
+          ╱           ╲           ╱       
+         ╱             ╲         ╱        
+        ╱               ╲       ╱         
+    ───○                 ───────          
+       |◀───▶|                            
+         DUT                              
+                                          
+    ○ ZVS turn-on                         
+    x turn-off                                       
 
 ## Pinout
 
