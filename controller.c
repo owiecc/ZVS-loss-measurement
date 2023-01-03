@@ -73,7 +73,7 @@ __interrupt void adcA1ISR(void)
     float UA = updatePI(&PI_ILhi, errILhi);
     float deltaUB = updatePI(&PI_ILlo, errILlo);
 
-    updateModulator(1.0 - UA - deltaUB, UA);
+    updateModulator(1.0f - UA - deltaUB, UA);
 
     AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; // Clear the interrupt flag
 
