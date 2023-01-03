@@ -6,26 +6,6 @@
 
 enum converter_states {StateInitDSP,StateStandby,StateStartup,StateOn,StateShutdown,StateTrip};
 
-struct Range {
-    float lo;
-    float hi;
-};
-
-struct OPConverter {
-    struct Range Vin;
-    struct Range Vout;
-    struct Range Vclamp;
-    struct Range Iout;
-};
-
-extern struct OPConverter SOA; // safe operating area
-
-inline int inRange(float, struct Range);
-enum trip_status inRangeOP(struct ADCResult, struct OPConverter);
-enum trip_status inSOA(struct ADCResult);
-
-void initTripFeedback(enum trip_status *);
-
 void initPIConttrollers(void);
 
 void setControllerILRef(float);

@@ -21,18 +21,6 @@ static struct piController PI_ILlo = {0, 0, 0, 0, 0}; // ILlo controller
 static float refILhi = 0.0f; // value overwritten in main.c
 static float refILlo = -5.0f;
 
-struct OPConverter SOA = {
-    .Vin =    (struct Range) {.lo = 190.0f, .hi =  840.0f},
-    .Vout =   (struct Range) {.lo =  90.0f, .hi =  925.0f},
-    .Vclamp = (struct Range) {.lo =  90.0f, .hi = 1260.0f},
-    .Iout =   (struct Range) {.lo =  -6.0f, .hi =    6.0f}
-};
-
-inline int inRange(float x, struct Range r)
-{
-    return (x<r.hi && x>r.lo) ? 1 : 0;
-}
-
 void initPIConttrollers(void)
 {
     PI_ILhi = initPI(PI_Vc_Ki/FSW, 2*PI_Vc_Ki/FSW, 0.5, -1, 0.99, 1.0, 0.2);
