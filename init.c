@@ -47,7 +47,7 @@ void initDSP(void)
     GpioCtrlRegs.GPBDIR.bit.GPIO34 = 1;  // output
 
     // Button inputs
-    GpioCtrlRegs.GPACTRL.bit.QUALPRD0 = 1; // Qual period = SYSCLKOUT/2
+    GpioCtrlRegs.GPACTRL.bit.QUALPRD0 = 1; // Qualification period = SYSCLKOUT/2
     GpioCtrlRegs.GPADIR.bit.GPIO8 = 0;     // input
     GpioCtrlRegs.GPAPUD.bit.GPIO8 = 0;     // enable pull-up
     GpioCtrlRegs.GPAQSEL1.bit.GPIO8 = 2;   // 6 samples
