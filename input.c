@@ -4,11 +4,9 @@
 
 button button_pressed(void)
 {
-    if (GpioDataRegs.GPBDAT.bit.GPIO48 == 0) { return BtnOff; }; // Off
-    if (GpioDataRegs.GPBDAT.bit.GPIO50 == 0) { return BtnClrTrip; }; // Clear trip
-    if (GpioDataRegs.GPBDAT.bit.GPIO52 == 0) { return BtnOn; }; // On
-    if (GpioDataRegs.GPBDAT.bit.GPIO49 == 0) { return BtnSelectRef; }; // Reference parameter selection
-    if (GpioDataRegs.GPBDAT.bit.GPIO40 == 0) { return BtnDecr; }; // Reference decrease
-    if (GpioDataRegs.GPBDAT.bit.GPIO51 == 0) { return BtnIncr; }; // Reference increase
+    if (GpioDataRegs.GPADAT.bit.GPIO11 == 0) { return BtnOn;  }; // On
+    if (GpioDataRegs.GPADAT.bit.GPIO10 == 0) { return BtnOff; }; // Off
+    if (GpioDataRegs.GPADAT.bit.GPIO9 == 0) { return BtnDecr; }; // Reference decrease
+    if (GpioDataRegs.GPADAT.bit.GPIO8 == 0) { return BtnIncr; }; // Reference increase
     return BtnNothing;
 }

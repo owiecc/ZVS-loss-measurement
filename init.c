@@ -47,19 +47,19 @@ void initDSP(void)
     GpioCtrlRegs.GPBDIR.bit.GPIO34 = 1;  // output
 
     // Button inputs
-    GpioCtrlRegs.GPBCTRL.bit.QUALPRD0 = 1; // Qual period = SYSCLKOUT/2
-    GpioCtrlRegs.GPBDIR.bit.GPIO40 = 0;    // input
-    GpioCtrlRegs.GPBQSEL1.bit.GPIO40 = 2;  // 6 samples
-    GpioCtrlRegs.GPBDIR.bit.GPIO49 = 0;    // input
-    GpioCtrlRegs.GPBQSEL2.bit.GPIO49 = 2;  // 6 samples
-    GpioCtrlRegs.GPBDIR.bit.GPIO51 = 0;    // input
-    GpioCtrlRegs.GPBQSEL2.bit.GPIO51 = 2;  // 6 samples
-    GpioCtrlRegs.GPBDIR.bit.GPIO48 = 0;    // input
-    GpioCtrlRegs.GPBQSEL2.bit.GPIO48 = 2;  // 6 samples
-    GpioCtrlRegs.GPBDIR.bit.GPIO50 = 0;    // input
-    GpioCtrlRegs.GPBQSEL2.bit.GPIO50 = 2;  // 6 samples
-    GpioCtrlRegs.GPBDIR.bit.GPIO52 = 0;    // input
-    GpioCtrlRegs.GPBQSEL2.bit.GPIO52 = 2;  // 6 samples
+    GpioCtrlRegs.GPACTRL.bit.QUALPRD0 = 1; // Qual period = SYSCLKOUT/2
+    GpioCtrlRegs.GPADIR.bit.GPIO8 = 0;     // input
+    GpioCtrlRegs.GPAPUD.bit.GPIO8 = 0;     // enable pull-up
+    GpioCtrlRegs.GPAQSEL1.bit.GPIO8 = 2;   // 6 samples
+    GpioCtrlRegs.GPADIR.bit.GPIO9 = 0;     // input
+    GpioCtrlRegs.GPAPUD.bit.GPIO9 = 0;     // enable pull-up
+    GpioCtrlRegs.GPAQSEL1.bit.GPIO9 = 2;   // 6 samples
+    GpioCtrlRegs.GPADIR.bit.GPIO10 = 0;    // input
+    GpioCtrlRegs.GPAPUD.bit.GPIO10 = 0;    // enable pull-up
+    GpioCtrlRegs.GPAQSEL1.bit.GPIO10 = 2;  // 6 samples
+    GpioCtrlRegs.GPADIR.bit.GPIO11 = 0;    // input
+    GpioCtrlRegs.GPAPUD.bit.GPIO11 = 0;    // enable pull-up
+    GpioCtrlRegs.GPAQSEL1.bit.GPIO11 = 2;  // 6 samples
     EDIS;
 
     DINT; // Disable global interrupt INTM

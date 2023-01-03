@@ -86,7 +86,7 @@ void main(void)
             if (tripStatus == TripCycleLimit) { ledOn(LEDTripSOAVin); ledOn(LEDTripSOAVout); }
 
             // Clear trip condition only if trip clear button is pressed and the converter is within SOA
-            if (button == BtnClrTrip && inSOA(readADC()) == NoTrip)
+            if (button == BtnOff && inSOA(readADC()) == NoTrip)
             {
                 tripStatus = NoTrip;
                 converter_state = StateStandby;
@@ -111,8 +111,6 @@ void adjust_reference(enum button button_pressed)
     static enum button button_prev = BtnNothing;
     int isPressed = (button_pressed != button_prev) && button_pressed != BtnNothing;
     enum button button = isPressed ? button_pressed : BtnNothing;
-
-    if (button == BtnSelectRef) { param = (param == Iout) ? Vclamp : Iout; } // switch between Iref and
 
     // indicate adjustment mode; blink on button press
     if (param == Vclamp && !isPressed) { ledOn(LEDVclampAdjust); } else { ledOff(LEDVclampAdjust); }
