@@ -21,8 +21,6 @@ static struct piController PI_Io = {0, 0, 0, 0, 0}; // Iout controller
 static float refIo = 0.0f; // value overwritten in main.c
 static float refDeltaVclamp = 0.0f;
 
-static enum trip_status * tripFeedback;
-
 struct OPConverter SOA = {
     .Vin =    (struct Range) {.lo = 190.0f, .hi =  840.0f},
     .Vout =   (struct Range) {.lo =  90.0f, .hi =  925.0f},
@@ -33,30 +31,6 @@ struct OPConverter SOA = {
 inline int inRange(float x, struct Range r)
 {
     return (x<r.hi && x>r.lo) ? 1 : 0;
-}
-
-enum trip_status inRangeOP(struct ADCResult sensors, struct OPConverter op)
-{
-    enum trip_status is_tripped = NoTrip;
-    is_tripped = inRange(sensors.Iout, op.Iout) ? is_tripped : TripOC;
-    if (is_tripped == TripOC) {ledOn(LEDTripOC);} else {ledOff(LEDTripOC);}
-    is_tripped = inRange(sensors.Vclamp, op.Vclamp) ? is_tripped : TripSOAVclamp;
-    if (is_tripped == TripSOAVclamp) {ledOn(LEDTripSOAVclamp);} else {ledOff(LEDTripSOAVclamp);}
-    is_tripped = inRange(sensors.Vout, op.Vout) ? is_tripped : TripSOAVout;
-    if (is_tripped == TripSOAVout) {ledOn(LEDTripSOAVout);} else {ledOff(LEDTripSOAVout);}
-    is_tripped = inRange(sensors.Vin, op.Vin) ? is_tripped : TripSOAVin;
-    if (is_tripped == TripSOAVin) {ledOn(LEDTripSOAVin);} else {ledOff(LEDTripSOAVin);}
-    return is_tripped;
-}
-
-enum trip_status inSOA(struct ADCResult sensors)
-{
-    return inRangeOP(sensors, SOA);
-}
-
-void initTripFeedback(enum trip_status *x)
-{
-    tripFeedback = x;
 }
 
 void initPIConttrollers(void)
@@ -80,15 +54,6 @@ __interrupt void adcA1ISR(void)
     static unsigned int ncycles = 0;
     ncycles++;
 
-    // Test if current operating point is within safe operating area; trip otherwise
-    enum trip_status tripStatus = inSOA(meas);
-    if (tripStatus != NoTrip)
-    {
-        disablePWM();
-        *tripFeedback = tripStatus;
-        ncycles = 0;
-    }
-
     //
     if (meas.Vin < AUX_SUPPLY_MIN) { ncycles = SOFT_CYCLE_LIMIT; }
 
@@ -104,7 +69,6 @@ __interrupt void adcA1ISR(void)
     if (ncycles >= HARD_CYCLE_LIMIT) // trip the converter
     {
         disablePWM();
-        *tripFeedback = TripCycleLimit;
         ncycles = 0;
     }
 

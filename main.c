@@ -10,7 +10,6 @@
 
 // Globals
 static enum converter_states converter_state = StateInitDSP;
-enum trip_status tripStatus = NoTrip;
 
 // Functions
 void adjust_reference(enum button);
@@ -22,14 +21,11 @@ void main(void)
     {
         enum button button = button_pressed();
 
-        converter_state = (tripStatus == NoTrip) ? converter_state : StateTrip;
-
         switch (converter_state)
         {
         case StateInitDSP:
         {
             initDSP(); // Configure GPIO, ADC, PWM
-            initTripFeedback(&tripStatus);
             initPIConttrollers(); // Initialize PI controllers
             setControllerIoutRef(0.0);
             setControllerDeltaVclampRef(0.0);
@@ -49,7 +45,7 @@ void main(void)
                 .Vclamp = (struct Range) {.lo = 0.9f*meas.Vout, .hi = 1.1f*meas.Vout}, // Vclamp is pre-charged to Vout
                 .Iout =   (struct Range) {.lo =  -0.1f, .hi = 0.1f} // no output current
             };
-            converter_state = (inRangeOP(meas, SSA) == NoTrip && button == BtnOn) ? StateStartup : StateStandby;
+            converter_state = (button == BtnOn) ? StateStartup : StateStandby;
             break;
         }
         case StateStartup:
@@ -77,20 +73,10 @@ void main(void)
         {
             relayOff(); // TODO Is this safe e.g. in over-current condition?
 
-            ledsOff();
-            // Indicate trip status on LEDs
-            if (tripStatus == TripOC) { ledOn(LEDTripOC); }
-            if (tripStatus == TripSOAVin) { ledOn(LEDTripSOAVin); }
-            if (tripStatus == TripSOAVout) { ledOn(LEDTripSOAVout); }
-            if (tripStatus == TripSOAVclamp) { ledOn(LEDTripSOAVclamp); }
-            if (tripStatus == TripCycleLimit) { ledOn(LEDTripSOAVin); ledOn(LEDTripSOAVout); }
-
             // Clear trip condition only if trip clear button is pressed and the converter is within SOA
-            if (button == BtnOff && inSOA(readADC()) == NoTrip)
+            if (button == BtnOff)
             {
-                tripStatus = NoTrip;
                 converter_state = StateStandby;
-                ledsOff(); // Turn off status LEDs
             }
             break;
         }
