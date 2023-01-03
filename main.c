@@ -40,6 +40,7 @@ void main(void)
         case StateStartup:
         {
             initPIConttrollers();
+            setControllerILRef(0.0);
             enablePWM();
             converter_state = StateOn;
             break;
@@ -73,15 +74,13 @@ void main(void)
 
 void adjust_reference(enum button button_pressed)
 {
-    static enum parameter param = Iout;
-
     // react to button only on press, not on hold
     static enum button button_prev = BtnNothing;
     int isPressed = (button_pressed != button_prev) && button_pressed != BtnNothing;
     enum button button = isPressed ? button_pressed : BtnNothing;
 
-    if (param == Iout && button == BtnIncr) { adjControllerILRef(+1.0); }
-    if (param == Iout && button == BtnDecr) { adjControllerILRef(-1.0); }
+    if (button == BtnIncr) { adjControllerILRef(+1.0); }
+    if (button == BtnDecr) { adjControllerILRef(-1.0); }
 
     button_prev = button_pressed;
     // TODO display reference parameter and Iout, Vclamp reference values values
