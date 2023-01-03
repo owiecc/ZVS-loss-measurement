@@ -6,7 +6,6 @@
 #include "adc.h"
 #include "leds.h"
 #include "input.h"
-#include "relay.h"
 
 // Globals
 static enum converter_states converter_state = StateInitDSP;
@@ -35,15 +34,11 @@ void main(void)
         case StateStandby:
         {
             adjust_reference(button);
-
-            // Enable startup transition only if the converter is within SOA
-            struct ADCResult meas = readADC();
             converter_state = (button == BtnOn) ? StateStartup : StateStandby;
             break;
         }
         case StateStartup:
         {
-            relayOn();
             initPIConttrollers();
             enablePWM();
             converter_state = StateOn;
@@ -64,8 +59,6 @@ void main(void)
         }
         case StateTrip:
         {
-            relayOff(); // TODO Is this safe e.g. in over-current condition?
-
             // Clear trip condition only if trip clear button is pressed and the converter is within SOA
             if (button == BtnOff)
             {
