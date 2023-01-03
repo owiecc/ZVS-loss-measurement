@@ -12,9 +12,20 @@ void initDSP(void)
     InitGpio(); // Init GPIO
 
     EALLOW;
-    // GPIO0-GPIO15 (PWM1-8, A+B)
-    GpioCtrlRegs.GPAPUD.all &= 0xFFFF0000; // enable pullups
-    GpioCtrlRegs.GPAMUX1.all = 0x55555555; // set PWM function
+    // PWM: GPIO0-GPIO3
+    GpioCtrlRegs.GPAPUD.bit.GPIO0 = 0;
+    GpioCtrlRegs.GPAPUD.bit.GPIO1 = 0;
+    GpioCtrlRegs.GPAPUD.bit.GPIO2 = 0;
+    GpioCtrlRegs.GPAPUD.bit.GPIO3 = 0;
+    GpioCtrlRegs.GPAMUX1.bit.GPIO0 = 01b;
+    GpioCtrlRegs.GPAMUX1.bit.GPIO1 = 01b;
+    GpioCtrlRegs.GPAMUX1.bit.GPIO2 = 01b;
+    GpioCtrlRegs.GPAMUX1.bit.GPIO3 = 01b;
+
+    // Gate driver status
+    GpioCtrlRegs.GPADIR.bit.GPIO4 = 0;  // READY input
+    GpioCtrlRegs.GPADIR.bit.GPIO5 = 0;  // DESAT input
+    GpioCtrlRegs.GPADIR.bit.GPIO6 = 1;  // RESET output
 
     // LEDs
     GpioCtrlRegs.GPAPUD.bit.GPIO12 = 0;  // LD0
