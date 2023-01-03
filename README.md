@@ -4,20 +4,30 @@ Controller for a full bridge converter topology. One of the transistors in the c
 
 ## Key waveforms
 
+There are two operating modes for the measurement: soft and fard switching. Three DUT swithing events are of interest: 
+
+- ● turn-on
+- ○ ZVS turn-on
+- × turn-off
+
 ### Hard switching
+
+In hard switching mode the turn-on and turn-off are done at the same current level. In order to achieve that an inductor with high inductance value is used. 
                                                                      
-    ───●─────x─────────────────────────── iL
+    ───●─────×─────────────────────────── iL
     
     ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ 0       
        |◀───▶|                            
          DUT                              
                                           
     ● turn-on                         
-    x turn-off          
+    × turn-off          
 
 ### Soft switching
-                                                                     
-             x──────                 ──── iL
+
+In soft switching mode the turn-off is done at the same current level as in the soft switching mode. The turn-on is done at a current level that guarantees a ZVS transition for DUT. In this mode an inductor with low inductance value is used. 
+                                                              
+             ×──────                 ──── iL
             ╱       ╲               ╱     
     ─ ─ ─ ─╱─ ─ ─ ─ ─╲─ ─ ─ ─ ─ ─ ─╱─ ─ ─ 0
           ╱           ╲           ╱       
@@ -28,7 +38,7 @@ Controller for a full bridge converter topology. One of the transistors in the c
          DUT                              
                                           
     ○ ZVS turn-on                         
-    x turn-off                                       
+    × turn-off                                       
 
 ## Pinout
 
