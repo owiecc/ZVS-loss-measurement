@@ -17,10 +17,10 @@ void initDSP(void)
     GpioCtrlRegs.GPAPUD.bit.GPIO1 = 0;
     GpioCtrlRegs.GPAPUD.bit.GPIO2 = 0;
     GpioCtrlRegs.GPAPUD.bit.GPIO3 = 0;
-    GpioCtrlRegs.GPAMUX1.bit.GPIO0 = 01b;
-    GpioCtrlRegs.GPAMUX1.bit.GPIO1 = 01b;
-    GpioCtrlRegs.GPAMUX1.bit.GPIO2 = 01b;
-    GpioCtrlRegs.GPAMUX1.bit.GPIO3 = 01b;
+    GpioCtrlRegs.GPAMUX1.bit.GPIO0 = 1; // ePWM
+    GpioCtrlRegs.GPAMUX1.bit.GPIO1 = 1; // ePWM
+    GpioCtrlRegs.GPAMUX1.bit.GPIO2 = 1; // ePWM
+    GpioCtrlRegs.GPAMUX1.bit.GPIO3 = 1; // ePWM
 
     // Gate driver status
     GpioCtrlRegs.GPADIR.bit.GPIO4 = 0;  // READY input
