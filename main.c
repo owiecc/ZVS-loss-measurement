@@ -58,11 +58,8 @@ void main(void)
         }
         case StateTrip:
         {
-            // Clear trip condition only if trip clear button is pressed and the converter is within SOA
-            if (button == BtnOff)
-            {
-                converter_state = StateStandby;
-            }
+            // Clear trip condition only if trip clear button is pressed
+            converter_state = (button == BtnOff) ? StateStandby : converter_state;
             break;
         }
         default:
