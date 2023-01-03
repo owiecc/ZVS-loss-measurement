@@ -52,7 +52,6 @@ void main(void)
         }
         case StateShutdown:
         {
-            relayOff();
             disablePWM();
             converter_state = StateStandby;
             break;
