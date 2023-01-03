@@ -44,47 +44,48 @@ In soft switching mode the turn-off is done at the same current level as in the 
 
 ### PWM
 
-| Card pin | Function     |
-|---------:|:-------------|
-|   49, 51 | PWM1A, PWM1B |
-|   53, 55 | PWM2A, PWM2B |
-|   50, 52 | PWM3A, PWM3B |
-|   54, 56 | PWM4A, PWM4B |
-|   57, 59 | PWM5A, PWM5B |
-|   61, 63 | PWM6A, PWM6B |
-|   58, 60 | PWM7A, PWM7B |
-|   62, 64 | PWM8A, PWM8B |
+| Card pin | Function | Transistor | PLECS |
+|---------:|:---------|:-----------|:------| 
+|       49 | PWM1A    | AH         | Q1    |
+|       51 | PWM1B    | AL         | Q2    |
+|       53 | PWM2B    | BH         | Q3    |
+|       55 | PWM2B    | BL         | Q4    |
+
+### Gate drivers status
+
+| Card pin | GPIO    | Net   | I/O | Function                |
+|---------:|:--------|:------|:----|:------------------------|
+|       50 | GPIO-04 | READY | I   | Gate driver             |
+|       52 | GPIO-05 | FAULT | I   | Desat event             |
+|       54 | GPIO-06 | RESET | O   | Reset after desat event |
 
 ### ADC
 
 | Card pin | ADC channel | Function |
 |---------:|:------------|:---------|
-|        9 | A0          | Vin      |
-|       11 | A1          | Vout     |
-|       15 | A2          | Vclamp   |
-|       17 | A4          | Iout     |
+|        9 | A0          | iL(A→B)  |
 
 ### Control buttons
 
-| Card pin | GPIO    | Net | Function |
-|---------:|:--------|:----|:---------|
-|       89 | GPIO-40 | SW1 | Reference decrease |
-|       99 | GPIO-49 | SW2 | Reference zero |
-|      101 | GPIO-51 | SW3 | Reference increase |
-|      103 | GPIO-48 | SW4 | Off |
-|      105 | GPIO-50 | SW5 | Reset |
-|      107 | GPIO-52 | SW6 | On |
+| Card pin | GPIO    | Net  | Function           |
+|---------:|:--------|:-----|:-------------------|
+|       57 | GPIO-08 | BTN0 | Reference increase |
+|       59 | GPIO-09 | BTN1 | Reference decrease |
+|       61 | GPIO-10 | BTN2 | Off/Reference zero |
+|       63 | GPIO-11 | BTN3 | On                 |
 
 ### Status LEDs
 
-| Card pin | GPIO    | LED indication |
-|---------:|:--------|:---------|
-|       72 | GPIO-22 | Overvoltage: Vclamp |
-|       74 | GPIO-23 | Overvoltage: Vout |
-|       76 | GPIO-28 | Overvoltage: Vin |
-|       78 | GPIO-29 | Overcurrent |
-|       80 | GPIO-30 | PI regulator OK: Io |
-|       82 | GPIO-31 | PI regulator OK: Vclamp |
+| Card pin | GPIO    | LED  | Value |
+|---------:|:--------|:-----|:------|
+|       58 | GPIO-12 | LD0  |     1 |
+|       60 | GPIO-13 | LD1  |     2 |
+|       62 | GPIO-14 | LD2  |     4 |
+|       64 | GPIO-15 | LD3  |     8 |
+|       68 | GPIO-20 | LD4  |    16 |
+|       70 | GPIO-21 | LD5  |    32 |
+|       72 | GPIO-22 | LD6  |    64 |
+|       74 | GPIO-23 | LD7  |   128 |
 
 ## ADC and sampling
 
