@@ -17,30 +17,37 @@ void initDSP(void)
     GpioCtrlRegs.GPAMUX1.all = 0x55555555; // set PWM function
 
     // LEDs
-    GpioCtrlRegs.GPAPUD.bit.GPIO22 = 0;  // LED Overvoltage: Vclamp
+    GpioCtrlRegs.GPAPUD.bit.GPIO12 = 0;  // LD0
+    GpioCtrlRegs.GPAMUX1.bit.GPIO12 = 0; // GPIO
+    GpioCtrlRegs.GPADIR.bit.GPIO12 = 1;  // output
+
+    GpioCtrlRegs.GPAPUD.bit.GPIO13 = 0;  // LD1
+    GpioCtrlRegs.GPAMUX1.bit.GPIO13 = 0; // GPIO
+    GpioCtrlRegs.GPADIR.bit.GPIO13 = 1;  // output
+
+    GpioCtrlRegs.GPAPUD.bit.GPIO14 = 0;  // LD2
+    GpioCtrlRegs.GPAMUX1.bit.GPIO14 = 0; // GPIO
+    GpioCtrlRegs.GPADIR.bit.GPIO14 = 1;  // output
+
+    GpioCtrlRegs.GPAPUD.bit.GPIO15 = 0;  // LD3
+    GpioCtrlRegs.GPAMUX1.bit.GPIO15 = 0; // GPIO
+    GpioCtrlRegs.GPADIR.bit.GPIO15 = 1;  // output
+
+    GpioCtrlRegs.GPAPUD.bit.GPIO20 = 0;  // LD4
+    GpioCtrlRegs.GPAMUX2.bit.GPIO20 = 0; // GPIO
+    GpioCtrlRegs.GPADIR.bit.GPIO20 = 1;  // output
+
+    GpioCtrlRegs.GPAPUD.bit.GPIO21 = 0;  // LD5
+    GpioCtrlRegs.GPAMUX2.bit.GPIO21 = 0; // GPIO
+    GpioCtrlRegs.GPADIR.bit.GPIO21 = 1;  // output
+
+    GpioCtrlRegs.GPAPUD.bit.GPIO22 = 0;  // LD6
     GpioCtrlRegs.GPAMUX2.bit.GPIO22 = 0; // GPIO
     GpioCtrlRegs.GPADIR.bit.GPIO22 = 1;  // output
 
-    GpioCtrlRegs.GPAPUD.bit.GPIO23 = 0;  // LED Overvoltage: Vout
+    GpioCtrlRegs.GPAPUD.bit.GPIO23 = 0;  // LD7
     GpioCtrlRegs.GPAMUX2.bit.GPIO23 = 0; // GPIO
     GpioCtrlRegs.GPADIR.bit.GPIO23 = 1;  // output
-
-    GpioCtrlRegs.GPAPUD.bit.GPIO28 = 0;  // LED Overvoltage: Vin
-    GpioCtrlRegs.GPAMUX2.bit.GPIO28 = 0; // GPIO
-    GpioCtrlRegs.GPADIR.bit.GPIO28 = 1;  // output
-
-    GpioCtrlRegs.GPAPUD.bit.GPIO29 = 0;  // LED Overcurrent
-    GpioCtrlRegs.GPAMUX2.bit.GPIO29 = 0; // GPIO
-    GpioCtrlRegs.GPADIR.bit.GPIO29 = 1;  // output
-
-    GpioCtrlRegs.GPAPUD.bit.GPIO30 = 0;  // LED PI regulator OK: Io
-    GpioCtrlRegs.GPAMUX2.bit.GPIO30 = 0; // GPIO
-    GpioCtrlRegs.GPADIR.bit.GPIO30 = 1;  // output
-
-    GpioCtrlRegs.GPAPUD.bit.GPIO31 = 0;  // LED PI regulator OK: Vclamp
-    GpioCtrlRegs.GPAMUX2.bit.GPIO31 = 0; // GPIO
-    GpioCtrlRegs.GPADIR.bit.GPIO31 = 1;  // output
-
 
     // Button inputs
     GpioCtrlRegs.GPACTRL.bit.QUALPRD0 = 1; // Qualification period = SYSCLKOUT/2

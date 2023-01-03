@@ -80,10 +80,6 @@ void adjust_reference(enum button button_pressed)
     int isPressed = (button_pressed != button_prev) && button_pressed != BtnNothing;
     enum button button = isPressed ? button_pressed : BtnNothing;
 
-    // indicate adjustment mode; blink on button press
-    if (param == Vclamp && !isPressed) { ledOn(LEDVclampAdjust); } else { ledOff(LEDVclampAdjust); }
-    if (param == Iout && !isPressed) { ledOn(LEDIoutAdjust); } else { ledOff(LEDIoutAdjust); }
-
     if (param == Iout && button == BtnIncr) { adjControllerILRef(+1.0); }
     if (param == Iout && button == BtnDecr) { adjControllerILRef(-1.0); }
 
