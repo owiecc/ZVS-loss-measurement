@@ -15,11 +15,11 @@
 #define HARD_CYCLE_LIMIT 60000 // PWM off
 #define AUX_SUPPLY_MIN 195
 
-static struct piController PI_Vc = {0, 0, 0, 0, 0}; // Vclamp controller
-static struct piController PI_Io = {0, 0, 0, 0, 0}; // Iout controller
+static struct piController PI_ILhi = {0, 0, 0, 0, 0}; // ILhi controller
+static struct piController PI_ILlo = {0, 0, 0, 0, 0}; // ILlo controller
 
-static float refIo = 0.0f; // value overwritten in main.c
-static float refDeltaVclamp = 0.0f;
+static float refILhi = 0.0f; // value overwritten in main.c
+static float refILlo = -5.0f;
 
 struct OPConverter SOA = {
     .Vin =    (struct Range) {.lo = 190.0f, .hi =  840.0f},
@@ -35,15 +35,12 @@ inline int inRange(float x, struct Range r)
 
 void initPIConttrollers(void)
 {
-    PI_Vc = initPI(PI_Vc_Ki/FSW, 2*PI_Vc_Ki/FSW, 0.5, -1, 0.99, 1.0, 0.2);
-    PI_Io = initPI(PI_Io_Ki/FSW, 2*PI_Io_Ki/FSW, 0.5, -1, 0.00, 0.25, -0.25);
+    PI_ILhi = initPI(PI_Vc_Ki/FSW, 2*PI_Vc_Ki/FSW, 0.5, -1, 0.99, 1.0, 0.2);
+    PI_ILlo = initPI(PI_Io_Ki/FSW, 2*PI_Io_Ki/FSW, 0.5, -1, 0.00, 0.25, -0.25);
 }
 
-void setControllerDeltaVclampRef(float x) { refDeltaVclamp = x; }
-void adjControllerDeltaVclampRef(float x) { refDeltaVclamp += x; }
-
-void setControllerIoutRef(float x) { refIo = x; }
-void adjControllerIoutRef(float x) { refIo += x; }
+void setControllerILRef(float x) { refILhi = x; }
+void adjControllerILRef(float x) { refILhi += x; }
 
 // adcA1ISR - ADC A Interrupt 1 ISR
 // Runs with every switching cycle, runs the control law for the converter
@@ -62,8 +59,7 @@ __interrupt void adcA1ISR(void)
     if (ncycles >= SOFT_CYCLE_LIMIT) // set default references
     {
         refVclamp = 0.0f;
-        setControllerDeltaVclampRef(0.0f);
-        setControllerIoutRef(0.0f);
+        setControllerILRef(0.0f);
     }
 
     if (ncycles >= HARD_CYCLE_LIMIT) // trip the converter
@@ -71,14 +67,13 @@ __interrupt void adcA1ISR(void)
         disablePWM();
         ncycles = 0;
     }
+    float errILhi = refILhi - meas.Iout; // TODO fix measured values
+    float errILlo = refILlo - meas.Iout;
 
-    float errVclamp = refVclamp + refDeltaVclamp - meas.Vclamp;
-    float errIout = refIo - meas.Iout;
+    float UA = updatePI(&PI_ILhi, errILhi);
+    float deltaUB = updatePI(&PI_ILlo, errILlo);
 
-    float d = updatePI(&PI_Vc, -errVclamp);
-    float p = updatePI(&PI_Io, errIout);
-
-    updateModulator(d, p);
+    updateModulator(1.0 - UA - deltaUB, UA);
 
     AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; // Clear the interrupt flag
 

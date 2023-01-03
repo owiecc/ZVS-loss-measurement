@@ -28,11 +28,8 @@ void initTripFeedback(enum trip_status *);
 
 void initPIConttrollers(void);
 
-void setControllerDeltaVclampRef(float);
-void adjControllerDeltaVclampRef(float);
-
-void setControllerIoutRef(float);
-void adjControllerIoutRef(float);
+void setControllerILRef(float);
+void adjControllerILRef(float);
 
 __interrupt void adcA1ISR(void);
 

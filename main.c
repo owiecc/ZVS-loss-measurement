@@ -27,8 +27,7 @@ void main(void)
         {
             initDSP(); // Configure GPIO, ADC, PWM
             initPIConttrollers(); // Initialize PI controllers
-            setControllerIoutRef(0.0);
-            setControllerDeltaVclampRef(0.0);
+            setControllerILRef(0.0);
             calibrateADC();
             converter_state = StateStandby;
             break;
@@ -102,10 +101,8 @@ void adjust_reference(enum button button_pressed)
     if (param == Vclamp && !isPressed) { ledOn(LEDVclampAdjust); } else { ledOff(LEDVclampAdjust); }
     if (param == Iout && !isPressed) { ledOn(LEDIoutAdjust); } else { ledOff(LEDIoutAdjust); }
 
-    if (param == Iout && button == BtnIncr) { adjControllerIoutRef(+0.5); }
-    if (param == Iout && button == BtnDecr) { adjControllerIoutRef(-0.5); }
-    if (param == Vclamp && button == BtnIncr) { adjControllerDeltaVclampRef(+1.0); }
-    if (param == Vclamp && button == BtnDecr) { adjControllerDeltaVclampRef(-1.0); }
+    if (param == Iout && button == BtnIncr) { adjControllerILRef(+1.0); }
+    if (param == Iout && button == BtnDecr) { adjControllerILRef(-1.0); }
 
     button_prev = button_pressed;
     // TODO display reference parameter and Iout, Vclamp reference values values
