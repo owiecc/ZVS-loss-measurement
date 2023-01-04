@@ -2,9 +2,13 @@
 #include "adc.h"
 #include "f28x_project.h"
 
+#define Imeas_nom 6.0f
+#define Imeas_sens 0.625f
+#define Vref_ext 3.3f
+
 const int N_AVG_IOUT_CAL = 128;
 
-struct ADCScaling ADCcal = { .gain = -0.012, .offset = 1890 }; // LEM6-NP + (3.3k, 6.8k) voltage divider; calibrated parameters
+struct ADCScaling ADCcal = { .gain = Vref_ext/(2^12)*Imeas_nom/Imeas_sens, .offset = 2^12/2 }; // LEM LKSR 6-NP; calibrated parameters
 
 void calibrateADC(void)
 {
