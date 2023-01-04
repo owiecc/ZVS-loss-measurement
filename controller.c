@@ -27,8 +27,14 @@ void initPIConttrollers(void)
     PI_ILlo = initPI(PI_Io_Ki/FSW, 2*PI_Io_Ki/FSW, 0.5, -1, 0.00, 0.25, -0.25);
 }
 
-void setControllerILRef(float x) { refILhi = x; }
-void adjControllerILRef(float x) { refILhi += x; }
+void setControllerILRef(float x) {
+    refILhi = x;
+    displayValue((int)(refILhi));
+}
+
+void adjControllerILRef(float x) {
+    setControllerILRef(refILhi + x);
+}
 
 // adcA1ISR - ADC A Interrupt 1 ISR
 // Runs with every switching cycle, runs the control law for the converter
