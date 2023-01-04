@@ -7,18 +7,9 @@ struct ADCScaling {
     int offset;
 };
 
-struct ADCCalibration {
-    struct ADCScaling coeffACD0;
-    struct ADCScaling coeffACD1;
-    struct ADCScaling coeffACD2;
-    struct ADCScaling coeffACD3;
-};
-
 struct ADCResult {
-    float Vin;
-    float Vout;
-    float Vclamp;
-    float Iout;
+    float ILhi;
+    float ILlo;
 };
 
 void initADC(void);

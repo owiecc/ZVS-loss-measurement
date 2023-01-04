@@ -43,31 +43,22 @@ __interrupt void adcA1ISR(void)
     struct ADCResult meas = scaleADCs();
 
     static unsigned int ncycles = 0;
+
     ncycles++;
-
-    //
-    if (meas.Vin < AUX_SUPPLY_MIN) { ncycles = SOFT_CYCLE_LIMIT; }
-
-    float refVclamp = meas.Vin*Ninv; // track Vin with Vclamp
-
-    if (ncycles >= SOFT_CYCLE_LIMIT) // set default references
-    {
-        refVclamp = 0.0f;
-        setControllerILRef(0.0f);
-    }
-
     if (ncycles >= HARD_CYCLE_LIMIT) // trip the converter
     {
         disablePWM();
         ncycles = 0;
     }
-    float errILhi = refILhi - meas.Iout; // TODO fix measured values
-    float errILlo = refILlo - meas.Iout;
+
+    float errILhi = refILhi - meas.ILhi; // TODO fix measured values
+    float errILlo = refILlo - meas.ILlo;
 
     float u1 = updatePI(&PI_ILhi, errILhi);
     float u2 = updatePI(&PI_ILlo, errILlo);
 
-    updateModulator(1.0f - u1 - u2, u2);
+    //updateModulator(1.0f - u1 - u2, u2);
+    updateEPWM(0.9, 0.1);
 
     AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; // Clear the interrupt flag
 
