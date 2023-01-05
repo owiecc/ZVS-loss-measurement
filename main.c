@@ -48,6 +48,7 @@ void main(void)
         case StateOn:
         {
             adjust_reference(button);
+            if (EPwm1Regs.TBCTL.bit.CTRMODE == TB_FREEZE) { converter_state = StateTrip; break; }
             converter_state = (button == BtnOff) ? StateShutdown : converter_state;
             break;
         }
