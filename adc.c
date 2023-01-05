@@ -8,7 +8,7 @@
 
 const int N_AVG_IOUT_CAL = 128;
 
-struct ADCScaling ADCcal = { .gain = Vref_ext/(2^12)*Imeas_nom/Imeas_sens, .offset = 2^12/2 }; // LEM LKSR 6-NP; calibrated parameters
+struct ADCScaling ADCcal = { .gain = Vref_ext/(4046)*Imeas_nom/Imeas_sens, .offset = 4096/2 }; // LEM LKSR 6-NP; calibrated parameters
 
 void calibrateADC(void)
 {
