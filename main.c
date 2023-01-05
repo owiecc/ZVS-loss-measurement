@@ -35,8 +35,6 @@ void main(void)
         {
             adjust_reference(button);
             converter_state = (button == BtnOn) ? StateStartup : StateStandby;
-            enablePWM();
-            updateEPWM(0.9, 0.1);
             break;
         }
         case StateStartup:
