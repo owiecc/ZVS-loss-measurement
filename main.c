@@ -27,7 +27,7 @@ void main(void)
             initDSP(); // Configure GPIO, ADC, PWM
             initPIConttrollers(); // Initialize PI controllers
             setControllerILRef(0.0);
-            calibrateADC();
+            //calibrateADC();
             converter_state = StateStandby;
             break;
         }
