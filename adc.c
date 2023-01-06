@@ -50,8 +50,8 @@ struct ADCResult readADC(void)
 inline struct ADCResult scaleADCs(void)
 {
     struct ADCResult adcOut;
-    adcOut.ILhi = scaleADC(AdcaResultRegs.ADCRESULT0, ADCcal); //TODO: check order
-    adcOut.ILlo = scaleADC(AdcaResultRegs.ADCRESULT1, ADCcal);
+    adcOut.ILlo = scaleADC(AdcaResultRegs.ADCRESULT0, ADCcal);
+    adcOut.ILhi = scaleADC(AdcaResultRegs.ADCRESULT1, ADCcal);
 
     return adcOut;
 }
