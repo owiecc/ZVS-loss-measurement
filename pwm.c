@@ -99,7 +99,7 @@ void enablePWM(void) {
     EPwm3Regs.TBCTR = 0;
 
     // Set duty cycle to 100% on high-side transistor
-    EPwm1Regs.CMPA.bit.CMPA = 0; 
+    EPwm1Regs.CMPA.bit.CMPA = PWM_PRD_HALF;
     EPwm2Regs.CMPA.bit.CMPA = 0; 
     EPwm3Regs.CMPA.bit.CMPA = 0; 
 
