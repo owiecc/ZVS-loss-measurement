@@ -5,15 +5,8 @@
 #include "pwm.h"
 #include "leds.h"
 
-#define n1 14
-#define n2 21
-#define N ((float)n1/(float)n2)
-#define Ninv ((float)n2/(float)n1)
 #define PI_ILhi_Ki 50.0f
 #define PI_ILlo_Ki 0.05f
-#define SOFT_CYCLE_LIMIT 50000 // controllers regulate to initial state
-#define HARD_CYCLE_LIMIT 60000 // PWM off
-#define AUX_SUPPLY_MIN 195
 
 static struct piController PI_ILhi = {0, 0, 0, 0, 0}; // ILhi controller
 static struct piController PI_ILlo = {0, 0, 0, 0, 0}; // ILlo controller
