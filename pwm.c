@@ -89,6 +89,8 @@ void disablePWM(void) {
     EPwm2Regs.TBCTL.bit.CTRMODE = TB_FREEZE; 
     EPwm3Regs.TBCTL.bit.CTRMODE = TB_FREEZE; 
     EDIS;
+
+    GpioDataRegs.GPACLEAR.bit.GPIO6 = 1;  // disable gate drivers
 }
 
 void enablePWM(void) {
@@ -113,4 +115,6 @@ void enablePWM(void) {
     EPwm2Regs.TZCLR.bit.OST = 1;
     EPwm3Regs.TZCLR.bit.OST = 1;
     EDIS;
+
+    GpioDataRegs.GPASET.bit.GPIO6 = 1;  // enable gate drivers
 }

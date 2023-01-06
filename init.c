@@ -26,6 +26,8 @@ void initDSP(void)
     GpioCtrlRegs.GPADIR.bit.GPIO4 = 0;  // READY input
     GpioCtrlRegs.GPADIR.bit.GPIO5 = 0;  // DESAT input
     GpioCtrlRegs.GPADIR.bit.GPIO6 = 1;  // RESET output
+    GpioDataRegs.GPACLEAR.bit.GPIO6 = 1;  // disable gate drivers
+    GpioCtrlRegs.GPADIR.bit.GPIO6 = 1;  // output
 
     // LEDs
     GpioCtrlRegs.GPAPUD.bit.GPIO12 = 0;  // LD0
