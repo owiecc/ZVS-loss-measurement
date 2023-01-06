@@ -16,8 +16,8 @@ static float refILlo = -5.0f;
 
 void initPIConttrollers(void)
 {
-    PI_ILhi = initPI(PI_ILhi_Ki/FSW, 2*PI_ILhi_Ki/FSW, 0.5, -1, 0.02, 0.4, 0.01);
-    PI_ILlo = initPI(PI_ILlo_Ki/FSW, 2*PI_ILlo_Ki/FSW, 0.5, -1, 0.00, 0.4, 0.01);
+    PI_ILhi = initPI(PI_ILhi_Ki/FSW, 2*PI_ILhi_Ki/FSW, 0.5, -1, 0.02, 0.48, -0.4);
+    PI_ILlo = initPI(PI_ILlo_Ki/FSW, 2*PI_ILlo_Ki/FSW, 0.5, -1, 0.00, 0.4, -0.4);
 }
 
 void setControllerILRef(float x) {
