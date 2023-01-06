@@ -57,7 +57,7 @@ __interrupt void adcA1ISR(void)
     float u1 = updatePI(&PI_ILhi, errILhi);
     float u2 = updatePI(&PI_ILlo, errILlo);
 
-    updateEPWM(1.0f - u1 - u2, u2);
+    updateEPWM(1.0f - u1 - u2, u1);
 
     AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; // Clear the interrupt flag
 
