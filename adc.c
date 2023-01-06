@@ -2,7 +2,7 @@
 #include "adc.h"
 #include "f28x_project.h"
 
-#define Imeas_nom 6.0f
+#define Imeas_nom 25.0f
 #define Imeas_sens 0.625f
 #define Vref_ext 3.3f
 
