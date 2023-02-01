@@ -79,8 +79,8 @@ void adjust_reference(enum button button_pressed)
     int isPressed = (button_pressed != button_prev) && button_pressed != BtnNothing;
     enum button button = isPressed ? button_pressed : BtnNothing;
 
-    if (button == BtnIncr) { adjControllerILRef(+1.0); }
-    if (button == BtnDecr) { adjControllerILRef(-1.0); }
+    if (button == BtnIncr) { adjControllerILRef(+0.1); }
+    if (button == BtnDecr) { adjControllerILRef(-0.1); }
 
     button_prev = button_pressed;
     // TODO display reference parameter and Iout, Vclamp reference values values

@@ -7,13 +7,13 @@
 
 #define PI_ILhi_Ki 10.0f
 #define PI_ILlo_Ki 0.05f
-#define HARD_CYCLE_LIMIT 20000 // PWM off
+#define HARD_CYCLE_LIMIT 200 // PWM off
 
 static struct piController PI_DeltaIL = {0, 0, 0, 0, 0}; // ILhi controller
 static struct piController PI_ILlo = {0, 0, 0, 0, 0}; // ILlo controller
 
-static float refILhi = 0.0f; // value overwritten in main.c
-static float refILlo = -5.0f;
+static float refILhi = 2.0f;
+static float refILlo = 0.0f; // value overwritten in main.c
 
 void initPIConttrollers(void)
 {
@@ -22,8 +22,8 @@ void initPIConttrollers(void)
 }
 
 void setControllerILRef(float x) {
-    refILhi = x;
-    displayValue((int)(refILhi));
+    refILlo = x;
+    displayValue((int)(refILlo));
 }
 
 void adjControllerILRef(float x) {
