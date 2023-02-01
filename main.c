@@ -40,7 +40,6 @@ void main(void)
         case StateStartup:
         {
             initPIConttrollers();
-            setControllerILRef(0.0);
             enablePWM();
             converter_state = StateOn;
             break;
