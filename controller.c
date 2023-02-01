@@ -27,7 +27,7 @@ void setControllerILRef(float x) {
 }
 
 void adjControllerILRef(float x) {
-    setControllerILRef(refILhi + x);
+    setControllerILRef(refILlo + x);
 }
 
 // adcA1ISR - ADC A Interrupt 1 ISR
