@@ -7,7 +7,7 @@
 
 #define PI_ILhi_Ki 10.0f
 #define PI_ILlo_Ki 0.05f
-#define HARD_CYCLE_LIMIT 200 // PWM off
+#define HARD_CYCLE_LIMIT 20000 // PWM off
 
 static struct piController PI_DeltaIL = {0, 0, 0, 0, 0}; // ILhi controller
 static struct piController PI_ILlo = {0, 0, 0, 0, 0}; // ILlo controller
