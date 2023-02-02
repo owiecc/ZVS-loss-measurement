@@ -23,7 +23,7 @@ void initPIConttrollers(void)
 
 void setControllerILRef(float x) {
     refILlo = x;
-    displayValue((int)(refILlo));
+    displayValue((int)(10*refILlo));
 }
 
 void adjControllerILRef(float x) {
