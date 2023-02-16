@@ -38,12 +38,12 @@ __interrupt void adcA1ISR(void)
 
     static unsigned int ncycles = 0;
 
-    ncycles++;
-    if (ncycles >= HARD_CYCLE_LIMIT) // trip the converter
-    {
-        disablePWM();
-        ncycles = 0;
-    }
+    //ncycles++;
+    //if (ncycles >= HARD_CYCLE_LIMIT) // trip the converter
+    //{
+    //    disablePWM();
+    //    ncycles = 0;
+    //}
 
     //meas.ILhi = 0.0f;
     //meas.ILlo = 0.0f;
