@@ -23,12 +23,12 @@ void initPIConttrollers(void)
 }
 
 void setControllerILRef(float x) {
-    refILhi = x;
-    displayValue((int)(10*refILhi));
+    refILlo = x;
+    displayValue((int)(10*refILlo));
 }
 
 void adjControllerILRef(float x) {
-    setControllerILRef(refILhi + x);
+    setControllerILRef(refILlo + x);
 }
 
 // adcA1ISR - ADC A Interrupt 1 ISR
