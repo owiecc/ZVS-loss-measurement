@@ -13,8 +13,8 @@
 static struct piController PI_DeltaIL = {0, 0, 0, 0, 0}; // ILhi controller
 static struct piController PI_ILlo = {0, 0, 0, 0, 0}; // ILlo controller
 
-static float refILhi = 2.0f;
-static float refILlo = 0.0f; // value overwritten in main.c
+static float refILhi = 2.0f; // value overwritten in main.c
+static float refILlo = -2.0f;
 
 void initPIConttrollers(void)
 {
@@ -23,12 +23,12 @@ void initPIConttrollers(void)
 }
 
 void setControllerILRef(float x) {
-    refILlo = x;
-    displayValue((int)(10*refILlo));
+    refILhi = x;
+    displayValue((int)(10*refILhi));
 }
 
 void adjControllerILRef(float x) {
-    setControllerILRef(refILlo + x);
+    setControllerILRef(refILhi + x);
 }
 
 // adcA1ISR - ADC A Interrupt 1 ISR
