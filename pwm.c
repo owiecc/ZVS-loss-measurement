@@ -42,8 +42,8 @@ void initEPWM(void)
     EPwm1Regs.AQCTLA.bit.CAD = AQ_CLEAR;            // Low on counter down         //
     EPwm1Regs.DBCTL.bit.POLSEL = DB_ACTV_HIC;       // Active high, complementary
     EPwm1Regs.DBCTL.bit.OUT_MODE = 3;               // Channel A controls channel B
-    EPwm1Regs.DBFED.bit.DBFED = 60;                 // 200ns
-    EPwm1Regs.DBRED.bit.DBRED = 60;                 // 200ns
+    EPwm1Regs.DBFED.bit.DBFED = 36;                 // 200ns
+    EPwm1Regs.DBRED.bit.DBRED = 36;                 // 200ns
 
     // PWM2 configuration
     EPwm2Regs.TBPRD = PWM_PRD_HALF;
